@@ -17,14 +17,18 @@ server.listen(port, function () {
 });
 
 io.on('connection', function(client) {
-    console.log(`Client ${client.id} connected...`);
 
-    io.emit('user joined',client.id);
     client.on('join', function(data) {
-        console.log(data);
+        console.log('client',data);
+        io.emit('join',{hello: 'world'})
     });
+
     client.on('disconnected', function(data) {
-        console.log(`Client ${client.id} left...`);
+
+    });
+
+    client.on('message', function(data) {
+        io.emit('message',data)
     });
 
 });
